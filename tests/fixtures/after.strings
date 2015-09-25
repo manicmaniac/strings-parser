@@ -1,0 +1,4 @@
+/* written by strings-parser (https://github.com/manicmaniac/strings-parser) */
+"double quoted key" = "modified";
+"single quoted key" = "single quoted value";
+"raw_key" = "raw_value";

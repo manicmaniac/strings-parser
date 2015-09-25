@@ -1,0 +1,3 @@
+"double quoted key" = "modified";
+'single quoted key' = 'single quoted value';
+this = junk;

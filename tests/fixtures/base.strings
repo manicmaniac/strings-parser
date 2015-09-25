@@ -1,0 +1,3 @@
+"double quoted key" = "double quoted value";
+'single quoted key' = 'single quoted value';
+raw_key = raw_value;
