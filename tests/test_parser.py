@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+import token
 import unittest
 
 from strings.parser import StringsParser
-from strings.token import *  # noqa
 
 
 class TestStringsParser(unittest.TestCase):
@@ -20,13 +20,13 @@ class TestStringsParser(unittest.TestCase):
 
 class MockLexer(object):
     def __init__(self):
-        self.tokens = iter([Token(LBRACE),
-                            Token(STRING, 'key'),
-                            Token(EQUAL),
-                            Token(STRING, 'value'),
-                            Token(SEMICOLON),
-                            Token(RBRACE),
-                            Token(EOF)])
+        self.tokens = iter([(token.LBRACE, None),
+                            (token.STRING, 'key'),
+                            (token.EQUAL, None),
+                            (token.STRING, 'value'),
+                            (token.SEMI, None),
+                            (token.RBRACE, None),
+                            (token.ENDMARKER, None)])
 
-    def next_token(self):
+    def get_token(self):
         return next(self.tokens)

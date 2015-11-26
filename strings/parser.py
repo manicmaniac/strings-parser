@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-from strings.token import *  # noqa
+import token
+
 from strings.node import StringsNode, EntryNode
 
 
@@ -11,11 +12,11 @@ class Parser(object):
         self.consume()
 
     def consume(self):
-        self.lookahead = self.lexer.next_token()
+        self.lookahead = self.lexer.get_token()
 
     def match(self, type):
-        if self.lookahead.type is type:
-            value = self.lookahead.value
+        if self.lookahead[0] is type:
+            value = self.lookahead[1]
             self.consume()
             return value
         else:
@@ -31,23 +32,23 @@ class StringsParser(Parser):
         return self.strings()
 
     def strings(self):
-        if self.lookahead.type is LBRACE:
-            self.match(LBRACE)
+        if self.lookahead[0] is token.LBRACE:
+            self.match(token.LBRACE)
             entries = self.entries()
-            self.match(RBRACE)
+            self.match(token.RBRACE)
         else:
             entries = self.entries()
         return StringsNode(entries)
 
     def entries(self):
         entries = []
-        while self.lookahead.type is STRING:
+        while self.lookahead[0] is token.STRING:
             entries.append(self.entry())
         return entries
 
     def entry(self):
-        key = self.match(STRING)
-        self.match(EQUAL)
-        value = self.match(STRING)
-        self.match(SEMICOLON)
+        key = self.match(token.STRING)
+        self.match(token.EQUAL)
+        value = self.match(token.STRING)
+        self.match(token.SEMI)
         return EntryNode(key, value)
